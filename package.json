@@ -1,0 +1,30 @@
+{
+  "name": "script-builder",
+  "version": "0.0.1",
+  "description": "Sample web builder to build scripts dynamically based on input. Scripts are clubbed using requirejs.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anshulguleria/script-builder.git"
+  },
+  "keywords": [
+    "bundle",
+    "web-builder"
+  ],
+  "author": "anshulguleria@ymail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anshulguleria/script-builder/issues"
+  },
+  "homepage": "https://github.com/anshulguleria/script-builder",
+  "devDependencies": {
+    "requirejs": "^2.1.15"
+  },
+  "dependencies": {
+    "body-parser": "^1.11.0",
+    "express": "^4.11.2"
+  }
+}
