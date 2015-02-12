@@ -14,6 +14,8 @@ Sample call: [http://localhost:8080/scripts/bundle?modules=modone,modtwo](http:/
 
 **Note: lib and main module are default loaded thus don't call them again.**
 
+Since module now supports reading arguments from command line. Thus command line can also manipulate behaviour of build. e.g. if we run our server with `node server.js --optimize uglify2` it will gived uglified module as build output.
+
 ##TODO
 
 Handle the case to not allow files outside baseUrl or outside app folder or whatever config says. Like if not handles I could give module name as ../../server which will fetch server.js file in project directory
