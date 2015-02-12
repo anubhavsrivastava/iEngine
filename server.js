@@ -23,7 +23,7 @@ var requireConfig = {
     include: [],
     // out file where all the bundled code will
     // be dumped
-    out: 'app/scrpts/main-bundle.js'
+    out: 'app/scripts/main-bundle.js'
 };
 
 bundleRouter.route('/bundle')
