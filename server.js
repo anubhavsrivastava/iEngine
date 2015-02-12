@@ -2,6 +2,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var requirejs = require('requirejs');
+// for readint/merging configurations
+var nconf = require('nconf');
 var fs = require('fs');
 var app = express();
 var port = process.env.PORT || 8080;
@@ -11,7 +13,13 @@ app.use(bodyParser.json());
 
 var bundleRouter = express.Router();
 
-var requireConfig = {
+// setup nconf heirarchy
+nconf.argv().file({
+    file: "build-conf.json"
+});
+
+// set default for requireConf
+nconf.defaults({
     baseUrl: 'app/scripts',
     paths: [
         // add any additional paths which are outside
@@ -25,7 +33,10 @@ var requireConfig = {
     // be dumped
     // TODO: this should be read from config
     out: 'tmp/main-bundle.js'
-};
+});
+
+
+console.dir(nconf.get());
 
 bundleRouter.route('/bundle')
     // get call for bundling
@@ -35,10 +46,10 @@ bundleRouter.route('/bundle')
             reqModules = req.query.modules.split(',');
         }
 
-        // TODO: we should exted requireConfig to not to change
+        // TODO: we should extend requireConfig to not to change
         // original object
-        requireConfig.include = reqModules;
-
+        nconf.set("include", reqModules);
+        var requireConfig = nconf.get();
         requirejs.optimize(requireConfig, function (buildResponse) {
             // buildResponse is just the console output
             // of requirejs optimizer. We need to read the
