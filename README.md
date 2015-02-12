@@ -13,3 +13,11 @@ Where module names are the file names in app/scripts.
 Sample call: [http://localhost:8080/scripts/bundle?modules=modone,modtwo](http://localhost:8080/scripts/bundle?modules=modone,modtwo)
 
 **Note: lib and main module are default loaded thus don't call them again.**
+
+##TODO
+
+Handle the case to not allow files outside baseUrl or outside app folder or whatever config says. Like if not handles I could give module name as ../../server which will fetch server.js file in project directory
+
+Read requireConfig to config file. May be package.json or other config file.
+
+Seperate out require specific code from server.js file. And move it to module so that it can be used as cli also.
