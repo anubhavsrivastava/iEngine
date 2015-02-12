@@ -1,0 +1,11 @@
+{
+    "baseUrl": "app/scripts",
+    "paths": [
+    ],
+    "optimize": "none",
+    "name": "main",
+    "deps": ["libs/almond"],
+    "include": [],
+    "out": "tmp/main-bundle.js"
+
+}
