@@ -1,4 +1,3 @@
-### Node ###
 # Logs
 logs
 *.log
@@ -17,41 +16,13 @@ coverage
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
-# node-waf configuration
-.lock-wscript
-
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
 # Dependency directory
+# Commenting this out is preferred by some people, see
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
 node_modules
 
-
-### Vim ###
-[._]*.s[a-w][a-z]
-[._]s[a-w][a-z]
-*.un~
-Session.vim
-.netrwhist
-*~
-
-
-### SublimeText ###
-# cache files for sublime text
-*.tmlanguage.cache
-*.tmPreferences.cache
-*.stTheme.cache
-
-# workspace files are user-specific
-*.sublime-workspace
-
-# project files should be checked into the repository, unless a significant
-# proportion of contributors will probably not be using SublimeText
-# *.sublime-project
-
-# sftp configuration file
-sftp-config.json
-
-# removing our custom build folder
-tmp/*
+# Users Environment Variables
+.lock-wscript
