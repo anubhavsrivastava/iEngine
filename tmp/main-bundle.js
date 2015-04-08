@@ -453,11 +453,12 @@ define("main", function(){});
 
 define('ad-getter',['lib'], function (lib) {
 return {
-	getAdBaseUrl: '/api/getAd/{pubId}/{plateId}', // the url to be hit for ads
+	//getAdBaseUrl: '/api/getAd/{pubId}/{plateId}', // the url to be hit for ads
+	getAdBaseUrl: 'http://store.theadplate.com/store/get/{plateId}',
 	defaultErrorHtml:'<strong>Ad not found!</strong>',
 	ajax:function (reqObj) {
 		var method = reqObj.method || "GET";
-		var xmlhttp = new XMLHttpRequest();
+		var xmlhttp = new XDomainRequest();
 	       
 	    //success and failure handling
 	    xmlhttp.onreadystatechange = function() {
@@ -473,12 +474,14 @@ return {
 	    xmlhttp.send(JSON.stringify(reqObj.data));
 	},
 	
-	getAd: function(plateId,pubId){
+	getAd: function(plate){
+		var plateId=plate.getAttribute("plateId");
+		var pubId =plate.getAttribute("pubId");
 		var adUrl=this.getAdBaseUrl.replace('{pubId}',pubId).replace('{plateId}',plateId);
 		this.ajax({
 			url:adUrl,
-			success:this.getAdSuccess.bind(this,[plateId,pubId]),
-			failure:this.getAdFailure.bind(this,[plateId,pubId])	
+			success:this.getAdSuccess.bind(this,[plate]),
+			failure:this.getAdFailure.bind(this,[plate])	
 		});
 	},
 
@@ -505,12 +508,19 @@ return {
 		}
 	},
 
-	getAdSuccess:function(plateId,pubId,xmlhttp){
-		//handle according to api response
+	getAdSuccess:function(plate,xmlhttp){
+		//for the time being consider all are image link ads
+		var apiResponse = JSON.stringify(xmlhttp.responseText);
+		plate.innerHTML = "<a href='"+apiResponse.redirectUrl+"'><img src='"+apiResponse.imgUrl+"'/></a>"
 	}
 }
 });
 
-alert('paul shan');
+alert('Kickstarted');
+
+var event = document.createEvent('Event');
+// Define that the event name is 'build'.
+event.initEvent('TAPkickstart', true, true);
+document.dispatchEvent(event);
 define("kickstarter", function(){});
 
