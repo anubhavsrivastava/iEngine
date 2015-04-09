@@ -1,4 +1,3 @@
-alert('Kickstarted');
 
 var event = document.createEvent('Event');
 // Define that the event name is 'build'.

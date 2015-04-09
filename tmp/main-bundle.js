@@ -444,9 +444,9 @@ define("lib", function(){});
 require(['lib'], function (lib) {
     console.log('lib loaded successfully');
     // requiring other modules
-    require(['modone', 'modtwo', 'modthree'], function () {
-        console.log('modone, modtwo and modthree loaded successfully');
-    });
+    // require(['modone', 'modtwo', 'modthree'], function () {
+    //     console.log('modone, modtwo and modthree loaded successfully');
+    // });
 });
 
 define("main", function(){});
@@ -458,12 +458,12 @@ return {
 	defaultErrorHtml:'<strong>Ad not found!</strong>',
 	ajax:function (reqObj) {
 		var method = reqObj.method || "GET";
-		var xmlhttp = new XDomainRequest();
+		var xmlhttp = new XMLHttpRequest();
 	       
 	    //success and failure handling
 	    xmlhttp.onreadystatechange = function() {
 	        if (xmlhttp.readyState == 4 ) {
-	           if(xmlhttp.status == 200)
+	           if(xmlhttp.status == 200 || xmlhttp.status == 304)
 	              	reqObj.success && reqObj.success(xmlhttp);
 	           else
 	           		reqObj.fail && reqObj.fail(xmlhttp);
@@ -480,12 +480,13 @@ return {
 		var adUrl=this.getAdBaseUrl.replace('{pubId}',pubId).replace('{plateId}',plateId);
 		this.ajax({
 			url:adUrl,
-			success:this.getAdSuccess.bind(this,[plate]),
-			failure:this.getAdFailure.bind(this,[plate])	
+			success:this.getAdSuccess.bind(this,plate),
+			failure:this.getAdFailure.bind(this,plate)	
 		});
 	},
 
 	getAdFailure:function (plateId,pubId,xmlhttp) {
+		console.log("get ad call failed");
 		var aplates=document.getElementsByTagName("aplate");
 		var requiredElement=null;
 
@@ -499,7 +500,7 @@ return {
 
 		if(requiredElement){
 			if(xmlhttp && xmlhttp.responseText){
-				var apiResponse = JSON.stringify(xmlhttp.responseText);
+				var apiResponse = JSON.parse(xmlhttp.responseText);
 				if(apiResponse.fault)
 					requiredElement.html(apiResponse.fault.html);
 			}
@@ -509,14 +510,14 @@ return {
 	},
 
 	getAdSuccess:function(plate,xmlhttp){
+		console.log("getad call succeeded");
 		//for the time being consider all are image link ads
-		var apiResponse = JSON.stringify(xmlhttp.responseText);
+		var apiResponse = JSON.parse(xmlhttp.responseText);
 		plate.innerHTML = "<a href='"+apiResponse.redirectUrl+"'><img src='"+apiResponse.imgUrl+"'/></a>"
 	}
 }
 });
 
-alert('Kickstarted');
 
 var event = document.createEvent('Event');
 // Define that the event name is 'build'.
